@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>YKS Sorular</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1556e8">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--tx:#1d1d1b;--mu:#6b6a65;--ac:#1556e8;--ok:#1f9d55;--no:#d64545;--bd:#e3e1da;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161618;--card:#222226;--tx:#f0efea;--mu:#9a9992;--ac:#4f8cff;--ok:#3ecf7e;--no:#ff7070;--bd:#34343a}}
+:root[data-theme="dark"]{--bg:#161618;--card:#222226;--tx:#f0efea;--mu:#9a9992;--ac:#4f8cff;--ok:#3ecf7e;--no:#ff7070;--bd:#34343a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:640px;margin:0 auto;padding:16px 16px 56px}
+.top{display:flex;gap:8px;margin-bottom:14px}
+.top button{flex:1;padding:12px;border-radius:12px;border:2px solid var(--ac);background:transparent;color:var(--ac);font:inherit;font-weight:700;cursor:pointer}
+.top button.on{background:var(--ac);color:#fff}
+.me{position:fixed;left:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));font-size:12px;font-weight:600;color:var(--mu);opacity:.85;pointer-events:none}
+.ser{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:600px){.ser{grid-template-columns:210px 1fr}}
+.wr{position:relative;display:flex;align-items:center;justify-content:center;gap:4px;margin:8px 0}
+.wb{position:absolute;left:0;right:0;top:80px;height:40px;background:rgba(128,128,128,.18);border-radius:10px;pointer-events:none}
+.wh{position:relative;width:70px;height:200px;overflow-y:scroll;scroll-snap-type:y mandatory;padding:80px 0;text-align:center;scrollbar-width:none;-webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+.wh::-webkit-scrollbar{display:none}
+.wh div{height:40px;line-height:40px;font-size:22px;scroll-snap-align:center;color:var(--mu)}
+.wh div.sel{color:var(--tx);font-weight:700;font-size:26px}
+.wl{font-size:14px;color:var(--mu);width:28px}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.lb{position:fixed;inset:0;z-index:50;display:flex;background:rgba(0,0,0,.94);overflow:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y pinch-zoom}
+.lb img{margin:auto;display:block;max-width:100%;max-height:100%;cursor:zoom-in}
+.lb.z img{max-width:none;max-height:none;width:250%;cursor:zoom-out}
+.lbx{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:14px;z-index:51;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:22px;cursor:pointer}
+.cg>span{text-align:center;font-size:11px;color:var(--mu)}
+.anim{animation:tabIn .2s ease-out}
+@keyframes tabIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.anim{animation:none}}
+.hero{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin:0 0 12px;padding:8px 6px;border-radius:16px}
+.hero .hn{flex:1;text-align:center;color:var(--mu);font-size:13px;align-self:center}
+.dd{font-size:34px;line-height:1;display:inline-block}
+.dd.st{color:#ffc400;filter:drop-shadow(0 0 6px rgba(255,196,0,.7));animation:tw 1.6s ease-in-out infinite alternate}
+.dd.ck{color:#1f9d55;font-weight:700}
+@keyframes tw{from{transform:scale(.85) rotate(-8deg);opacity:.7}to{transform:scale(1.15) rotate(8deg);opacity:1}}
+.h-star{background:radial-gradient(ellipse at 50% 0,rgba(255,200,40,.2),transparent 70%)}
+.glowwrap .card{border-color:rgba(255,200,40,.45);animation:gl 3.2s ease-in-out infinite alternate}
+@keyframes gl{from{box-shadow:0 0 5px rgba(255,200,40,.12)}to{box-shadow:0 0 16px rgba(255,200,40,.32)}}
+.h-video{background:radial-gradient(ellipse at 50% 0,rgba(230,33,23,.2),transparent 70%)}
+.glowred .card{border-color:rgba(230,33,23,.45);animation:glr 3.2s ease-in-out infinite alternate}
+@keyframes glr{from{box-shadow:0 0 5px rgba(230,33,23,.12)}to{box-shadow:0 0 16px rgba(230,33,23,.32)}}
+@media(prefers-reduced-motion:reduce){.dd,.glowwrap .card,.glowred .card{animation:none}}
+.dc{width:100%;max-width:44px;aspect-ratio:1;margin:0 auto;padding:0;border-radius:50%;border:2px solid var(--bd);background:transparent;color:var(--tx);font:inherit;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.dc.navy{border-color:#6f8fe8}
+.dc.today{outline:2px solid var(--tx);outline-offset:2px}
+.dc.sel{border-color:var(--ac);border-width:3px}
+.dc.gold{animation:glow 1.8s ease-in-out infinite alternate}
+@keyframes glow{from{box-shadow:0 0 3px 1px #ffc400}to{box-shadow:0 0 13px 4px #ffd84d}}
+.lg{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:12px;font-size:12px;color:var(--mu)}
+.lg i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.qt{text-align:center;margin:14px auto 18px;padding:16px 22px;max-width:480px;font-size:17px;font-style:italic;color:var(--tx);line-height:1.5;background:var(--card);border:2px solid var(--ac);border-radius:32px}
+.qt .qa{display:block;font-style:normal;font-size:13px;margin-top:8px;color:var(--mu)}
+.qt b{display:block;font-style:normal;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;color:var(--ac)}
+h1{font-size:22px;margin:4px 0 12px}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tabs button{flex:1;padding:10px 6px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;font:inherit;font-size:14px;cursor:pointer}
+.tabs button{opacity:.8;font-weight:600}
+.tabs button.on{opacity:1;outline:2px solid var(--tx);outline-offset:2px}
+#t0{background:var(--ok);color:#fff;border-color:var(--ok)}
+#t1{background:var(--ac);color:#fff;border-color:var(--ac);box-shadow:0 2px 8px rgba(21,86,232,.4)}
+#t2{background:#fff;color:#1d1d1b;border-color:var(--bd)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:12px}
+.card img{width:100%;border-radius:8px;display:block;background:#fff}
+.mu{color:var(--mu);font-size:13px}
+.cats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.cats button{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:20px;border:2px solid var(--c);background:transparent;color:var(--c);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.cats button.on{background:var(--c);color:#fff}
+.cats button.on.c-star{color:#1d1d1b}
+.cats button.on .ytp{fill:var(--c)}
+.star{background:#e6a800!important;color:#1d1d1b!important}
+.del{border:0;border-radius:8px;background:var(--no);color:#fff;padding:6px 10px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;flex:none}
+.row{display:flex;gap:8px;margin-top:10px}
+.row button,.btn{flex:1;padding:12px;border:0;border-radius:10px;font:inherit;font-weight:600;color:#fff;cursor:pointer;background:var(--ac)}
+.ok{background:var(--ok)!important}.no{background:var(--no)!important}
+.gh{background:transparent!important;color:var(--mu)!important;border:1px solid var(--bd)!important;font-weight:400!important}
+label{display:block;font-size:13px;color:var(--mu);margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+.empty{text-align:center;color:var(--mu);padding:40px 10px}
+.tag{display:inline-block;background:var(--bg);border:1px solid var(--bd);border-radius:20px;padding:1px 10px;font-size:12px;margin-right:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{min-width:44px;padding:10px 12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.chips button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.li{display:flex;gap:10px;align-items:center}
+.li img{width:64px;height:64px;object-fit:cover;border-radius:8px;flex:none}
+.li div{flex:1;min-width:0}
+.anim2{animation:tabIn .34s ease-out}
+@media(prefers-reduced-motion:reduce){.anim2{animation:none}}
+.ai .chips{margin-bottom:10px}
+.ai .chips button{padding:7px 11px;font-size:13px;min-width:0;border-color:var(--c);color:var(--c)}
+.ai .chips button.on{background:var(--c);color:#fff;border-color:var(--c)}
+.ai .card{background:linear-gradient(160deg,rgba(124,77,255,.12),rgba(255,94,168,.08))}
+.top #m2{border-color:#9b5cff;color:#b184ff}
+.top #m2.on{background:linear-gradient(135deg,#7c4dff,#ff5ea8);color:#fff;border-color:transparent}
+.ai #aisend{background:linear-gradient(135deg,#7c4dff,#ff5ea8);color:#fff}
+.top #m0{border-color:#e08a1e;color:#e08a1e}
+.top #m0.on{background:#e08a1e;color:#fff}
+#sec0 .card{background:linear-gradient(180deg,rgba(224,138,30,.09),transparent)}
+#sec0 .btn:not(.gh){background:#e08a1e;color:#fff}
+.dc.sel{border-color:#e08a1e}
+#sec1 .card{background:color-mix(in srgb,var(--card) 90%,#1b46c4 10%)}
+#sec1 input,#sec1 select{background:color-mix(in srgb,var(--bg) 92%,#1b46c4 8%)}
+#sec1 .glowwrap .card{background:color-mix(in srgb,var(--card) 90%,#c99a00 10%)}
+#sec1 .glowred .card{background:color-mix(in srgb,var(--card) 90%,#b3170f 10%)}
+#sec1 .greywrap .card{background:color-mix(in srgb,var(--card) 92%,#8a8a8a 8%)}
+.msgs{min-height:260px;max-height:52vh;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:4px 2px 10px}
+.mb{max-width:88%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.5;word-wrap:break-word}
+.mb.u{align-self:flex-end;background:linear-gradient(135deg,#7c4dff,#4f8cff);color:#fff;border-bottom-right-radius:4px}
+.mb.a{align-self:flex-start;background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--sc,#9b5cff);border-bottom-left-radius:4px}
+.mb img{display:block;max-width:100%;max-height:160px;border-radius:10px;margin-bottom:6px}
+.aibar{display:flex;gap:8px;align-items:flex-end}
+.aibar textarea{flex:1;resize:none;max-height:120px;padding:10px 12px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+.aibar button{flex:none}
+#aiprev{display:none;max-height:70px;border-radius:8px;margin-bottom:8px}
+.sv{position:fixed;inset:0;z-index:60;background:rgba(8,10,18,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:svBg .16s ease-out}
+.svp{position:absolute;top:max(8px,env(safe-area-inset-top));bottom:max(8px,env(safe-area-inset-bottom));left:8px;right:8px;display:flex;flex-direction:column;background:#111;border-radius:16px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.6);animation:svPop .18s ease-out}
+@keyframes svBg{from{opacity:0}to{opacity:1}}
+@keyframes svPop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes svDrop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.sv,.svp,.svm{animation:none}}
+.svb{display:flex;gap:6px;padding:6px 8px;overflow-x:auto;flex:none;align-items:center}
+#svr1{background:linear-gradient(90deg,#1f2745,#1d1d20 70%)}
+#svr2{background:#1b1b1e}
+.svm{animation:svDrop .14s ease-out}
+.svm.mp{background:#202a4d}
+.svm.me{background:#3a2430}
+.svb button{flex:none;min-width:40px;height:40px;border-radius:10px;border:1px solid #3a3a40;background:#2a2a2f;color:#fff;font:inherit;font-size:13px;padding:0 10px;cursor:pointer;white-space:nowrap}
+.svb button.on{background:var(--ac);border-color:var(--ac)}
+.svb button.cs{width:30px;height:30px;min-width:30px;border-radius:50%;padding:0;border:2px solid #666}
+.svb button.cs.on{border-color:#fff;box-shadow:0 0 0 2px var(--ac)}
+.svb button.dg{background:#3a1f22;border-color:#8a3a3f;color:#ffb4b4}
+.sg{display:flex;flex:none}
+.sg button{border-radius:0}
+.sg button:first-child{border-radius:10px 0 0 10px}
+.sg button:last-child{border-radius:0 10px 10px 0;border-left:0}
+.sg .ar{min-width:30px;padding:0 6px;font-size:12px}
+.sg.p button{background:#26325c;border-color:#3b4d8c}
+.sg.p button.on{background:var(--ac);border-color:var(--ac)}
+.sg.e button{background:#4a2b36;border-color:#7a3d50}
+.sg.e button.on{background:#d64545;border-color:#d64545}
+.svc{flex:1;min-height:0;overflow:auto;display:flex;-webkit-overflow-scrolling:touch}
+.svs{position:relative;flex:none;margin:auto;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.5)}
+.svs img{display:block;width:100%;user-select:none;-webkit-user-drag:none}
+.svs canvas{position:absolute;left:0;top:0;width:100%;height:100%}
+.svs canvas.fx{touch-action:none}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="qt" id="qt"></div>
+  <div class="top"><button id="m0">📅 Serüven</button><button id="m1">📋 Sorular</button><button id="m2">✏️ Arda</button></div>
+  <div id="sec0"></div>
+  <div id="sec2" style="display:none">
+    <div class="ai">
+      <div class="chips" id="aisub"></div>
+      <div class="card" style="padding:12px">
+        <div class="msgs" id="aimsg"></div>
+        <img id="aiprev" alt="">
+        <div class="aibar"><button type="button" class="btn gh" id="aiatt" style="padding:10px 12px">📷</button><textarea id="aiq" rows="1" placeholder="Sorunu yaz ya da fotoğrafını ekle…"></textarea><button type="button" class="btn" id="aisend" style="padding:10px 14px">Gönder</button></div>
+        <p class="mu" style="margin:8px 0 0;text-align:right"><a href="#" id="ainew" style="color:var(--mu)">Yeni sohbet</a></p>
+        <details id="aikey" style="margin-top:10px"><summary class="mu" style="cursor:pointer">🔑 Gemini anahtarı</summary>
+          <p class="mu" style="margin:8px 0">1) <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" style="color:var(--ac)">aistudio.google.com/apikey</a> adresini aç, Google hesabınla giriş yap. 2) <b>Create API key</b>’e bas, anahtarı kopyala. 3) Aşağıya yapıştır. Anahtar yalnızca bu telefonda saklanır, kimseyle paylaşma.</p>
+          <div class="aibar"><input id="aikeyin" type="password" placeholder="Anahtarı yapıştır" autocomplete="off" style="flex:1;padding:10px 12px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit"><button type="button" class="btn" id="aikeysave" style="padding:10px 14px">Kaydet</button></div>
+          <p class="mu" id="aikeymsg" style="margin:6px 0 0"></p>
+        </details>
+      </div>
+    </div>
+  </div>
+  <div id="sec1">
+  <h1>📚 YKS Soru Tekrar</h1>
+  <div class="tabs">
+    <button id="t0">Bugün</button><button id="t1">Liste</button><button id="t2">+ Ekle</button>
+  </div>
+  <div id="v"></div>
+  </div>
+  <div class="me">Arda Dalbudak</div>
+</div>
+<script>
+const DERS=["Matematik","Geometri","Fizik","Kimya","Biyoloji","Türkçe","Edebiyat","Tarih","Coğrafya","Felsefe","Diğer"];
+const SOZ=[["Hayatım boyunca defalarca başarısız oldum. İşte bu yüzden başarılıyım.", "Michael Jordan"], ["Hep denedin. Hep yenildin. Olsun. Yine dene. Yine yenil. Daha iyi yenil.", "Samuel Beckett, Worstward Ho"], ["Deha, yüzde bir ilham, yüzde doksan dokuz terdir.", "Thomas Edison"], ["Bin millik yolculuk tek bir adımla başlar.", "Lao Tzu"], ["Özel bir yeteneğim yok. Sadece tutkulu bir merakım var.", "Albert Einstein"], ["Önemli olan sorgulamayı bırakmamaktır.", "Albert Einstein"], ["Hayatta en hakiki mürşit ilimdir, fendir.", "Mustafa Kemal Atatürk"], ["Bütün ümidim gençliktedir.", "Mustafa Kemal Atatürk"], ["Antrenmanın her dakikasından nefret ettim ama dedim ki: Pes etme. Şimdi acı çek, hayatın boyunca şampiyon olarak yaşa.", "Muhammad Ali"], ["Büyük işler güçle değil, azimle başarılır.", "Samuel Johnson"], ["Günü, biçtiğin ürüne göre değil, ektiğin tohumlara göre değerlendir.", "Robert Louis Stevenson"], ["Yapamadıklarının, yapabildiklerine engel olmasına izin verme.", "John Wooden"], ["Bir şeyi yapabilmek için önce kendinden o şeyi beklemelisin.", "Michael Jordan"], ["Azim uzun bir yarış değildir; birbiri ardına gelen birçok kısa yarıştır.", "Walter Elliot"], ["Gitmeye değer hiçbir yere kestirme yol yoktur.", "Beverly Sills"], ["Çalışmanın yerini tutacak hiçbir şey yoktur.", "Thomas Edison"], ["Seni hedefine ulaştıran sırrı söyleyeyim: gücüm yalnızca azmimde yatıyor.", "Louis Pasteur"]];
+function todayQuote(){const d=new Date();const n=Math.floor((Date.now()-d.getTimezoneOffset()*6e4)/864e5);return SOZ[((n%SOZ.length)+SOZ.length)%SOZ.length]}
+let Q=[],tab=0,filt="all",db=null,persist=true,draft={img:null};
+const CAT={all:["Tüm sorular","#1556e8"],star:["★ Yıldızlı","#e6a800"],video:["Video çözüm","#e62117"],done:["✓ Yapılanlar","#7a7a80"]};
+const YT='<svg width="22" height="15" viewBox="0 0 22 15" aria-hidden="true"><rect width="22" height="15" rx="4.5" fill="currentColor"/><path class="ytp" d="M9 4l5.5 3.5L9 11z" fill="#fff"/></svg>';
+const catTag=q=>q.cat&&CAT[q.cat]?`<span class="tag" style="border-color:${CAT[q.cat][1]};color:${CAT[q.cat][1]}">${CAT[q.cat][0]}</span>`:"";
+const $=s=>document.querySelector(s);
+const day0=(t=Date.now())=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime()};
+const addDays=(t,n)=>{const d=new Date(t);d.setDate(d.getDate()+n);return d.getTime()};
+const fmt=t=>new Date(t).toLocaleDateString("tr-TR",{day:"numeric",month:"short"});
+const dueIn=q=>Math.round((q.next-day0())/864e5);
+
+function openDB(){return new Promise(r=>{try{const rq=indexedDB.open("yks-tekrar",1);
+rq.onupgradeneeded=()=>rq.result.createObjectStore("q",{keyPath:"id"});
+rq.onsuccess=()=>{db=rq.result;r()};rq.onerror=()=>{persist=false;r()}}catch(e){persist=false;r()}})}
+function loadAll(){return new Promise(r=>{if(!db)return r();try{const g=db.transaction("q").objectStore("q").getAll();
+g.onsuccess=()=>{Q=g.result||[];r()};g.onerror=()=>{persist=false;r()}}catch(e){persist=false;r()}})}
+function put(q){if(!db)return;try{db.transaction("q","readwrite").objectStore("q").put(q)}catch(e){persist=false}}
+function del(id){if(!db)return;try{db.transaction("q","readwrite").objectStore("q").delete(id)}catch(e){}}
+
+function parseSteps(s){const a=String(s).split(/[,\s;]+/).map(Number).filter(n=>n>=1&&isFinite(n)).map(Math.round);return a.length?a:[3]}
+
+function hero(f,n){let l,r;
+  if(f==="all"){l='<span class="dd">📋</span>';r='<span class="dd">📝</span>'}
+  else if(f==="star"){l='<span class="dd st">★</span>';r='<span class="dd st">★</span>'}
+  else if(f==="done"){l='<span class="dd ck">✓</span>';r='<span class="dd ck">✓</span>'}
+  else{l="";r=""}
+  return `<div class="hero h-${f}"><div>${l}</div><div class="hn">${n} soru</div><div>${r}</div></div>`}
+function pop(el,c){el.classList.remove("anim","anim2");void el.offsetWidth;el.classList.add(c||"anim")}
+function show(n){tab=n;ed=null;[0,1,2].forEach(i=>$("#t"+i).classList.toggle("on",i===n));render();pop($("#v"))}
+function render(){
+  const v=$("#v");
+  const warn=persist?"":'<p class="mu">⚠️ Tarayıcı depolaması kullanılamıyor; veriler sayfa kapanınca silinir.</p>';
+  if(tab===0){
+    const due=Q.filter(q=>dueIn(q)<=0).sort((a,b)=>a.next-b.next);
+    v.innerHTML=warn+(due.length?`<p class="mu">Bugün tekrar edilecek: ${due.length} soru</p>`+due.map(card).join(""):
+      `<div class="empty">🎉<br>Bugün tekrar edilecek soru yok.<br>${Q.length?"Sıradaki: "+fmt(Math.min(...Q.map(q=>q.next))):"“+ Ekle” ile ilk sorunu yükle."}</div>`);
+  }else if(tab===1){
+    if(ed){const eq=Q.find(x=>x.id===ed);if(eq){v.innerHTML=editForm(eq);edBind();return}ed=null}
+    const cnt=k=>k==="all"?Q.length:Q.filter(q=>q.cat===k).length;
+    const bar='<div class="cats">'+Object.keys(CAT).map(k=>`<button class="c-${k}${filt===k?" on":""}" style="--c:${CAT[k][1]}" onclick="setFilt('${k}')">${k==="video"?YT:""}${CAT[k][0]} (${cnt(k)})</button>`).join("")+"</div>";
+    const L=(filt==="all"?Q:Q.filter(q=>q.cat===filt)).slice().sort((a,b)=>a.next-b.next);
+    const clr=filt==="done"&&L.length?'<button class="btn no" style="width:100%;margin-bottom:12px" onclick="clearDone()">'+(armedAll?"Emin misin? "+L.length+" soru silinecek":"🗑 Hepsini temizle")+'</button>':"";
+    v.innerHTML=warn+bar+hero(filt,L.length)+clr+'<div class="'+(filt==="star"?"glowwrap":filt==="video"?"glowred":filt==="done"?"greywrap":"")+'">'+(L.length?L.map(item).join(""):'<div class="empty">Bu kategoride soru yok.</div>')+"</div>";
+  }else{
+    v.innerHTML=`<div class="card">
+      <label>Soru görseli</label><input type="file" id="f" accept="image/*">
+      <p class="mu" id="dg" style="margin:6px 0">Durum: dosya bekleniyor</p>
+      <img id="pv" style="display:none;margin-top:10px" alt="">
+      <label>Ders</label><select id="d">${DERS.map(d=>`<option>${d}</option>`).join("")}</select>
+      <label>Not (isteğe bağlı)</label><input id="n" placeholder="Konu, neden yapamadım…">
+      <label>Kaç günde bir tekrar?</label>
+      <div class="chips" id="ch">${[1,2,3,4,5,6,7].map(n=>`<button type="button" data-n="${n}">${n}</button>`).join("")}<button type="button" data-n="x">Diğer</button></div>
+      <input id="s" placeholder="Örn: 10 veya 1, 3, 7, 14" inputmode="text" style="display:none;margin-top:8px">
+      <p class="mu" id="sh"></p>
+      <p class="mu" id="er" style="color:var(--no)"></p>
+      <div class="row"><button class="btn" id="sv">Kaydet</button></div></div>`;
+    draft.img=null;draft.gun="3";
+    const paint=()=>{document.querySelectorAll("#ch button").forEach(b=>b.classList.toggle("on",b.dataset.n===draft.gun));
+      const x=draft.gun==="x";$("#s").style.display=x?"block":"none";
+      $("#sh").textContent=x?"Tek sayı = her N günde bir. Birden fazla sayı = sırayla uygulanır, sonuncusu tekrarlanır (ör. 1, 3, 7, 14).":"Her "+draft.gun+" günde bir tekrar edilir."};
+    document.querySelectorAll("#ch button").forEach(b=>b.onclick=()=>{draft.gun=b.dataset.n;paint();if(draft.gun==="x")$("#s").focus()});
+    paint();
+    let last=null;const dg=$("#dg");
+    const pick=async(ev,fi)=>{const f=fi.files&&fi.files[0];dg.textContent="Durum: "+((ev&&ev.type)||"odak")+" olayı, dosya sayısı: "+(fi.files?fi.files.length:0);
+      if(!f||f===last)return;last=f;$("#er").style.color="var(--mu)";$("#er").textContent="Seçildi: "+f.name+" — yükleniyor…";
+      try{draft.img=await shrink(f);const p=$("#pv");p.src=draft.img;p.style.display="block";$("#er").textContent="Görsel hazır ✓"}
+      catch(x){draft.img=null;last=null;$("#er").style.color="var(--no)";$("#er").textContent="Bu görsel okunamadı. Başka bir görsel ya da ekran görüntüsü dene. ("+(x&&x.message||"?")+")"}};
+    ["#f"].forEach(id=>{const fi=$(id);["change","input"].forEach(t=>fi.addEventListener(t,ev=>pick(ev,fi)));
+      window.addEventListener("focus",()=>setTimeout(()=>pick(null,fi),400))});
+    window.onerror=m=>{dg.textContent="Hata: "+m};
+    $("#sv").onclick=save;
+  }
+}
+function card(q){return `<div class="card"><div class="mu" style="display:flex;align-items:center;gap:4px"><span class="tag">${q.ders}</span>${catTag(q)}<span style="flex:1;min-width:0">${q.note?esc(q.note):""}</span></div>
+  <img src="${q.img}" alt="Soru" style="margin-top:8px;cursor:zoom-in" onclick="solveImg('${q.id}')"><div class="mu" style="text-align:center;font-size:12px;margin-top:4px">✏️ Büyütüp yazmak için görsele dokun</div>
+  <div class="row" style="font-size:13px"><button class="star" style="padding:12px 4px" onclick="act('${q.id}','star')">★ Yıldızla</button><button class="ok" style="padding:12px 4px" onclick="act('${q.id}','done')">✓ Yaptım</button><button class="no" style="padding:12px 4px" onclick="act('${q.id}','video')">✗ Yapamadım</button></div>
+  <p class="mu" style="margin:8px 0 0">Aralıklar: ${q.steps.join(" → ")} gün · Aşama ${q.step+1}/${q.steps.length}</p></div>`}
+function item(q){const d=dueIn(q);const t=d<=0?"Bugün":d===1?"Yarın":fmt(q.next);
+  return `<div class="card li"><img src="${q.img}" alt="" onclick="zoomImg('${q.id}')" style="cursor:zoom-in"><div><span class="tag">${q.ders}</span>${catTag(q)}<b>${t}</b>
+  <div class="mu">${q.note?esc(q.note)+" · ":""}${q.steps.join("→")} gün</div></div>
+  <div style="flex:none;display:flex;flex-direction:column;gap:6px;min-width:90px"><button class="btn gh" style="flex:none;padding:6px 8px;font-size:12px" onclick="now('${q.id}')">Şimdi</button>
+  <button class="btn gh" style="flex:none;padding:6px 8px;font-size:12px" onclick="editQ('${q.id}')">✎ Düzenle</button>
+  ${filt==="done"?`<button class="btn no" style="flex:none;padding:6px 8px;font-size:12px" onclick="rm('${q.id}')">${armed===q.id?"Emin misin? Sil":"🗑 Sil"}</button>`:""}</div></div>`}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function loadHeic(){return window.HeicTo?Promise.resolve():new Promise((res,rej)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/heic-to@1.5.2/dist/iife/heic-to.js";s.onload=res;s.onerror=()=>rej(new Error("HEIF dönüştürücü yüklenemedi"));document.head.appendChild(s)})}
+async function shrink(file,mx){
+  try{return await shrink0(file,mx)}catch(e){
+    if(/hei[cf]/i.test((file.type||"")+" "+(file.name||""))){await loadHeic();const fn=typeof HeicTo==="function"?HeicTo:HeicTo.heicTo;const o=await fn({blob:file,type:"image/jpeg",quality:.85});return await shrink0(o,mx)}
+    throw e}}
+async function shrink0(file,mx){
+  const draw=(w,h,src)=>{const m=mx||1400,k=Math.min(1,m/Math.max(w,h)),c=document.createElement("canvas");c.width=Math.round(w*k);c.height=Math.round(h*k);c.getContext("2d").drawImage(src,0,0,c.width,c.height);return c.toDataURL("image/jpeg",.82)};
+  try{const b=await createImageBitmap(file);const r=draw(b.width,b.height,b);if(b.close)b.close();return r}catch(e){}
+  const du=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(new Error("okuma hatası"));r.readAsDataURL(file)});
+  return await new Promise((res,rej)=>{const im=new Image();im.onload=()=>{try{res(draw(im.width,im.height,im))}catch(e){res(du)}};im.onerror=()=>rej(new Error("çözme hatası, tür: "+(file.type||"bilinmiyor")));im.src=du})}
+function save(){
+  if(!draft.img){$("#er").textContent="Önce bir görsel seç.";return}
+  if(draft.gun==="x"&&!$("#s").value.trim()){$("#er").textContent="Gün sayısını yaz.";return}
+  const steps=draft.gun==="x"?parseSteps($("#s").value):[Number(draft.gun)];
+  const q={id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),img:draft.img,ders:$("#d").value,note:$("#n").value.trim(),steps,step:0,next:addDays(day0(),steps[0]),created:Date.now()};
+  Q.push(q);put(q);show(1)}
+function act(id,c){const q=Q.find(x=>x.id===id);if(!q)return;q.cat=c;
+  if(c==="done")q.step=Math.min(q.step+1,q.steps.length-1);else if(c==="video")q.step=0;
+  q.next=addDays(day0(),q.steps[q.step]);put(q);render()}
+const INK={};
+function solveImg(id){
+  const q=Q.find(x=>x.id===id);if(!q)return;
+  const T={pen:["✎ Tükenmez",[2.5,5,9]],fp:["🖋 Dolma",[3,6,11]],hl:["🖍 Fosforlu",[12,20,34]],van:["✨ Kaybolan",[3,6,10]],er:["⌫ Silgi",[12,26,50]],er2:["✂ Çizgi silgi",[12,26,50]]};
+  const G={pens:["pen","fp","hl","van"],ers:["er","er2"]};
+  const COLS=["#111111","#1e5bff","#e62117","#1f9d55","#ff8a00","#8e44ff","#ffd400","#ffffff"],FADE=1200;
+  let tool="pen",grp={pens:"pen",ers:"er"},menu=null,col="#111111",si={pen:1,fp:1,hl:1,van:1,er:1,er2:1},zoom=1,hand=false,penSeen=false,armed=false,chg=false;
+  let strokes=(INK[id]||[]).slice(),hist=[strokes.slice()],hi=0,vs=[],raf=0,cur=null,W=900,H=900,SCL=1;
+  const prevB=document.body.style.overflow,prevH=document.documentElement.style.overflow;
+  document.body.style.overflow="hidden";document.documentElement.style.overflow="hidden";
+  const o=document.createElement("div");o.className="sv";
+  o.innerHTML='<div class="svp"><div class="svb" id="svr1"></div><div class="svb svm" id="svm" style="display:none"></div><div class="svb" id="svr2"></div><div class="svc"><div class="svs" id="svs"><img alt=""><canvas class="base"></canvas><canvas class="fx"></canvas></div></div></div>';
+  document.body.append(o);
+  const img=o.querySelector("img"),cv=o.querySelector(".base"),fx=o.querySelector(".fx"),st=o.querySelector("#svs"),svc=o.querySelector(".svc"),r1=o.querySelector("#svr1"),r2=o.querySelector("#svr2"),mn=o.querySelector("#svm");
+  const c=cv.getContext("2d"),f=fx.getContext("2d");
+  function fit(){const nw=img.naturalWidth||900,nh=img.naturalHeight||900,b=Math.min((svc.clientWidth-8)/nw,(svc.clientHeight-8)/nh);st.style.width=Math.max(60,nw*b*zoom)+"px"}
+  const onR=()=>fit();window.addEventListener("resize",onR);
+  function closeIt(){INK[id]=strokes.slice();cancelAnimationFrame(raf);window.removeEventListener("resize",onR);document.body.style.overflow=prevB;document.documentElement.style.overflow=prevH;o.remove()}
+  function path(g,p){g.beginPath();g.moveTo(p[0].x,p[0].y);
+    if(p.length<3){p.forEach(a=>g.lineTo(a.x+.01,a.y+.01))}
+    else{for(let i=1;i<p.length-1;i++){g.quadraticCurveTo(p[i].x,p[i].y,(p[i].x+p[i+1].x)/2,(p[i].y+p[i+1].y)/2)}g.lineTo(p[p.length-1].x,p[p.length-1].y)}}
+  function drawS(g,s,a){const w=s.size*SCL;g.save();g.lineCap="round";g.lineJoin="round";g.globalAlpha=a==null?1:a;
+    if(s.tool==="er"){g.globalCompositeOperation="destination-out";g.strokeStyle="#000";g.lineWidth=w;path(g,s.pts);g.stroke()}
+    else if(s.tool==="hl"){g.globalAlpha*=.35;g.strokeStyle=s.color;g.lineWidth=w;g.lineCap="butt";path(g,s.pts);g.stroke()}
+    else if(s.tool==="fp"){g.strokeStyle=s.color;
+      if(s.pts.length<2){g.lineWidth=w;path(g,s.pts);g.stroke()}
+      else for(let i=1;i<s.pts.length;i++){const a0=s.pts[i-1],b=s.pts[i];g.lineWidth=w*(.45+1.1*b.p);g.beginPath();g.moveTo(a0.x,a0.y);g.lineTo(b.x,b.y);g.stroke()}}
+    else if(s.tool==="van"){g.strokeStyle=s.color;g.shadowColor=s.color;g.shadowBlur=w*1.2;g.lineWidth=w;path(g,s.pts);g.stroke()}
+    else{g.strokeStyle=s.color;g.lineWidth=w;path(g,s.pts);g.stroke()}
+    g.restore()}
+  function redraw(){c.clearRect(0,0,W,H);strokes.forEach(s=>drawS(c,s))}
+  function renderFx(){const now=performance.now();f.clearRect(0,0,W,H);
+    vs=vs.filter(s=>!(s.end&&now-s.end>FADE));
+    vs.forEach(s=>drawS(f,s,s.end?1-(now-s.end)/FADE:1));
+    if(cur&&cur.tool!=="er"&&cur.tool!=="van")drawS(f,cur,1);
+    if(vs.length&&!raf)raf=requestAnimationFrame(()=>{raf=0;renderFx()})}
+  function commit(){hist=hist.slice(0,hi+1);hist.push(strokes.slice());hi=hist.length-1}
+  function hit(p,r){let ch=false;strokes=strokes.filter(s=>{if(s.tool==="er")return true;const rr=r+s.size*SCL;const h=s.pts.some(a=>Math.hypot(a.x-p.x,a.y-p.y)<rr);if(h)ch=true;return !h});return ch}
+  function pt(e){const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height,p:(e.pointerType!=="mouse"&&e.pressure>0)?e.pressure:.5}}
+  img.onload=()=>{W=Math.min(1600,img.naturalWidth||900);H=Math.round(W*(img.naturalHeight||900)/(img.naturalWidth||900));cv.width=fx.width=W;cv.height=fx.height=H;SCL=W/900;fit();redraw()};
+  img.src=q.img;requestAnimationFrame(fit);
+  fx.onpointerdown=e=>{if(e.pointerType==="pen")penSeen=true;else if(e.pointerType==="touch"&&penSeen)return;if(hand)return;
+    e.preventDefault();try{fx.setPointerCapture(e.pointerId)}catch(x){}
+    const p=pt(e);cur={tool,color:col,size:T[tool][1][si[tool]],pts:[p],id:e.pointerId};
+    if(tool==="van"){cur.end=null;vs.push(cur)}
+    if(tool==="er2"){if(hit(p,cur.size*SCL/2)){chg=true;redraw()}}
+    if(tool==="er")drawS(c,cur);
+    renderFx()};
+  fx.onpointermove=e=>{if(!cur||e.pointerId!==cur.id)return;
+    const evs=e.getCoalescedEvents?e.getCoalescedEvents():[e];
+    evs.forEach(ev=>{const p=pt(ev);cur.pts.push(p);if(cur.tool==="er2"&&hit(p,cur.size*SCL/2)){chg=true;redraw()}});
+    if(cur.tool==="er")drawS(c,{...cur,pts:cur.pts.slice(-4)});
+    renderFx()};
+  const up=e=>{if(!cur||e.pointerId!==cur.id)return;const s=cur;cur=null;
+    if(s.tool==="van"){s.end=performance.now()}
+    else if(s.tool==="er2"){if(chg)commit();chg=false}
+    else{strokes.push(s);if(s.tool!=="er")drawS(c,s);commit()}
+    renderFx()};
+  fx.onpointerup=up;fx.onpointercancel=up;
+  function ui(){
+    const inP=G.pens.includes(tool),inE=G.ers.includes(tool);
+    r1.innerHTML='<button data-a="x">✕</button><button data-a="u">↶</button><button data-a="r">↷</button>'
+      +'<span class="sg p"><button data-a="g" data-v="pens" class="'+(inP?"on":"")+'">'+T[grp.pens][0]+'</button><button class="ar" data-a="m" data-v="pens">'+(menu==="pens"?"▴":"▾")+'</button></span>'
+      +'<span class="sg e"><button data-a="g" data-v="ers" class="'+(inE?"on":"")+'">'+T[grp.ers][0]+'</button><button class="ar" data-a="m" data-v="ers">'+(menu==="ers"?"▴":"▾")+'</button></span>'
+      +'<button data-a="clr" class="dg">'+(armed?"Emin misin?":"🗑 Hepsini sil")+'</button>';
+    if(menu){mn.style.display="";mn.className="svb svm "+(menu==="pens"?"mp":"me");mn.innerHTML=G[menu].map(k=>'<button data-a="p" data-v="'+k+'" class="'+(tool===k?"on":"")+'">'+T[k][0]+'</button>').join("")}else{mn.style.display="none"}
+    r2.innerHTML=COLS.map(h=>'<button class="cs '+(col===h?"on":"")+'" data-a="c" data-v="'+h+'" style="background:'+h+'"></button>').join("")+'<input type="color" id="svcc" value="'+(/^#[0-9a-f]{6}$/i.test(col)?col:"#111111")+'" style="width:34px;height:34px;border:0;background:none;flex:none">'+[0,1,2].map(i=>'<button data-a="s" data-v="'+i+'" class="'+(si[tool]===i?"on":"")+'" style="font-size:'+(10+i*7)+'px">●</button>').join("")+'<button data-a="z" data-v="-0.5">－</button><button data-a="z" data-v="0.5">＋</button><button data-a="h" class="'+(hand?"on":"")+'">✋ Kaydır</button>';
+    r2.querySelector("#svcc").onchange=e=>{col=e.target.value;ui()}}
+  o.onclick=e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a,v=b.dataset.v;
+    if(a==="x"){closeIt();return}
+    if(a==="m"){menu=menu===v?null:v}
+    else{
+      if(a==="p"){tool=v;grp[menu]=v;if(v==="hl"&&col==="#111111")col="#ffd400"}
+      else if(a==="g"){tool=grp[v];if(tool==="hl"&&col==="#111111")col="#ffd400"}
+      else if(a==="u"){if(hi>0){hi--;strokes=hist[hi].slice();redraw()}}
+      else if(a==="r"){if(hi<hist.length-1){hi++;strokes=hist[hi].slice();redraw()}}
+      else if(a==="clr"){if(armed){strokes=[];vs=[];commit();redraw();renderFx();armed=false}else{armed=true;setTimeout(()=>{armed=false;ui()},3000)}}
+      else if(a==="c"){col=v}
+      else if(a==="s"){si[tool]=+v}
+      else if(a==="z"){zoom=Math.max(1,Math.min(5,zoom+(+v)));fit()}
+      else if(a==="h"){hand=!hand;fx.style.pointerEvents=hand?"none":"auto"}
+      menu=null}
+    ui()};
+  ui()}
+function zoomImg(id){const q=Q.find(x=>x.id===id);if(!q)return;const o=document.createElement("div");o.className="lb";o.innerHTML='<img src="'+q.img+'" alt="">';
+  const x=document.createElement("button");x.className="lbx";x.textContent="✕";const close=()=>{o.remove();x.remove()};
+  o.firstChild.onclick=e=>{e.stopPropagation();o.classList.toggle("z")};x.onclick=close;o.onclick=close;document.body.append(o,x)}
+function setFilt(k){filt=k;render()}
+function clearDone(){const d=Q.filter(q=>q.cat==="done");if(!d.length)return;
+  if(!armedAll){armedAll=true;render();setTimeout(()=>{if(armedAll){armedAll=false;render()}},3500);return}
+  armedAll=false;d.forEach(q=>del(q.id));Q=Q.filter(q=>q.cat!=="done");render()}
+function now(id){const q=Q.find(x=>x.id===id);if(!q)return;q.next=day0();put(q);show(0)}
+let armed=null,armedAll=false,ed=null,edGun="3";
+function rm(id){const t=Q.find(x=>x.id===id);if(!t||t.cat!=="done")return;if(armed!==id){armed=id;render();setTimeout(()=>{if(armed===id){armed=null;render()}},3500);return}
+  armed=null;Q=Q.filter(x=>x.id!==id);del(id);render()}
+function editQ(id){ed=id;render()}
+function edCancel(){ed=null;render()}
+function editForm(q){
+  const one=q.steps.length===1&&q.steps[0]>=1&&q.steps[0]<=7;edGun=one?String(q.steps[0]):"x";
+  return `<div class="card"><img src="${q.img}" alt="Soru" style="cursor:zoom-in" onclick="zoomImg('${q.id}')">
+  <label>Ders</label><select id="ed">${DERS.map(d=>`<option${d===q.ders?" selected":""}>${d}</option>`).join("")}</select>
+  <label>Not (isteğe bağlı)</label><input id="en" value="${esc(q.note||"")}">
+  <label>Kaç günde bir tekrar?</label>
+  <div class="chips" id="ech">${[1,2,3,4,5,6,7].map(n=>`<button type="button" data-n="${n}">${n}</button>`).join("")}<button type="button" data-n="x">Diğer</button></div>
+  <input id="es" value="${q.steps.join(", ")}" placeholder="Örn: 10 veya 1, 3, 7, 14" style="margin-top:8px">
+  <p class="mu" id="esh"></p><p class="mu" id="eer" style="color:var(--no)"></p>
+  <div class="row"><button class="btn gh" onclick="edCancel()">Vazgeç</button><button class="btn" onclick="edSave()">Kaydet</button></div></div>`}
+function edBind(){const paint=()=>{document.querySelectorAll("#ech button").forEach(b=>b.classList.toggle("on",b.dataset.n===edGun));
+  const x=edGun==="x";$("#es").style.display=x?"block":"none";
+  $("#esh").textContent=x?"Tek sayı = her N günde bir. Birden fazla sayı = sırayla uygulanır, sonuncusu tekrarlanır (ör. 1, 3, 7, 14).":"Her "+edGun+" günde bir tekrar edilir."};
+  document.querySelectorAll("#ech button").forEach(b=>b.onclick=()=>{edGun=b.dataset.n;paint();if(edGun==="x")$("#es").focus()});paint()}
+function edSave(){const q=Q.find(x=>x.id===ed);if(!q)return edCancel();
+  if(edGun==="x"&&!$("#es").value.trim()){$("#eer").textContent="Gün sayısını yaz.";return}
+  const steps=edGun==="x"?parseSteps($("#es").value):[Number(edGun)];
+  q.ders=$("#ed").value;q.note=$("#en").value.trim();q.steps=steps;q.step=0;q.next=addDays(day0(),steps[0]);put(q);ed=null;render()}
+
+const IH=40,GUN=["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
+const COL=[["#9a9992","#fff"],["#8b0000","#fff"],["#e62117","#fff"],["#7ddc7d","#10301a"],["#0b6b34","#fff"],["#4fc3f7","#04283a"],["#ffc400","#3a2a00"]];
+const colOf=m=>{const h=Math.floor(m/60);return COL[h<1?0:h>=6?6:h]};
+const keyOf=t=>{const d=new Date(t);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+let H={},sec=0,selDate=keyOf(Date.now()),cal=new Date(),hh=0,mm=0,serMsg="";
+cal=new Date(cal.getFullYear(),cal.getMonth(),1);
+try{H=JSON.parse(localStorage.getItem("yks-saat")||"{}")}catch(e){H={}}
+const persistH=()=>{try{localStorage.setItem("yks-saat",JSON.stringify(H))}catch(e){}};
+const hm=m=>Math.floor(m/60)+" sa "+(m%60)+" dk";
+function setSec(n){sec=n;[0,1,2].forEach(i=>{$("#sec"+i).style.display=i===n?"":"none";$("#m"+i).classList.toggle("on",i===n)});if(n===0)renderSer();if(n===2)renderAI();pop($("#sec"+n),"anim2")}
+function selDay(k){selDate=k;serMsg="";renderSer()}
+function calGo(d){cal=new Date(cal.getFullYear(),cal.getMonth()+d,1);renderSer()}
+function logH(){const m=hh*60+mm;if(m>0)H[selDate]=m;else delete H[selDate];persistH();serMsg="Kaydedildi ✓";renderSer()}
+function wheel(id,n,pad){return `<div class="wh" id="${id}">${Array.from({length:n},(_,i)=>`<div>${pad?String(i).padStart(2,"0"):i}</div>`).join("")}</div>`}
+function upd(el,set){const i=Math.max(0,Math.min(el.children.length-1,Math.round(el.scrollTop/IH)));set(i);[...el.children].forEach((c,j)=>c.classList.toggle("sel",j===i))}
+let SW={run:false,t0:0,acc:0},swI=null,swAud=null,swSrc=null;
+try{SW=Object.assign(SW,JSON.parse(localStorage.getItem("yks-kron")||"{}"))}catch(e){}
+const swSave=()=>{try{localStorage.setItem("yks-kron",JSON.stringify(SW))}catch(e){}};
+const swEl=()=>SW.acc+(SW.run?Date.now()-SW.t0:0);
+const swFmt=ms=>{const s=Math.floor(ms/1000);return [Math.floor(s/3600),Math.floor(s/60)%60,s%60].map(x=>String(x).padStart(2,"0")).join(":")};
+function swSilent(){if(swSrc)return swSrc;const r=4000,n=r*10,b=new Uint8Array(44+n),v=new DataView(b.buffer);
+  const w=(o,s)=>{for(let i=0;i<s.length;i++)b[o+i]=s.charCodeAt(i)};
+  w(0,"RIFF");v.setUint32(4,36+n,true);w(8,"WAVEfmt ");v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,r,true);v.setUint32(28,r,true);v.setUint16(32,1,true);v.setUint16(34,8,true);w(36,"data");v.setUint32(40,n,true);
+  b.fill(128,44);
+  let s="";for(let i=0;i<b.length;i++)s+=String.fromCharCode(b[i]);swSrc="data:audio/wav;base64,"+btoa(s);return swSrc}
+function swMeta(){if(!("mediaSession" in navigator)||typeof MediaMetadata==="undefined")return;
+  try{const d=new Date(Date.now()-swEl());navigator.mediaSession.metadata=new MediaMetadata({title:"⏱ "+swFmt(swEl()),artist:"Başladı: "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"),album:"YKS Serüven"})}catch(e){}}
+function swTick(){const e=$("#swt");if(e)e.textContent=swFmt(swEl());swMeta()}
+function swAudio(on){try{
+  if(on){if(!swAud){swAud=new Audio(swSilent());swAud.loop=true}swAud.play().catch(()=>{});
+    if("mediaSession" in navigator){navigator.mediaSession.playbackState="playing";navigator.mediaSession.setActionHandler("play",swStart);navigator.mediaSession.setActionHandler("pause",swPause)}}
+  else if(swAud){swAud.pause();if("mediaSession" in navigator)navigator.mediaSession.playbackState="paused"}}catch(e){}}
+function swStart(){if(SW.run)return;SW.run=true;SW.t0=Date.now();swSave();swAudio(true);swMeta();clearInterval(swI);swI=setInterval(swTick,1000);renderSer()}
+function swPause(){if(!SW.run)return;SW.acc=swEl();SW.run=false;swSave();clearInterval(swI);swAudio(false);renderSer()}
+function swReset(){SW={run:false,t0:0,acc:0};swSave();clearInterval(swI);swAudio(false);renderSer()}
+function swAdd(){const m=Math.round(swEl()/60000);if(m<1){serMsg="Önce en az 1 dakika çalış ⏱";return renderSer()}
+  const k=keyOf(Date.now());H[k]=(H[k]||0)+m;persistH();serMsg=m+" dk bugüne eklendi ✓";swReset()}
+function swCard(){return `<div class="card" style="grid-column:1/-1;text-align:center"><b>⏱ Kronometre</b><div id="swt" style="font-size:40px;font-weight:700;letter-spacing:1px;margin:8px 0;font-variant-numeric:tabular-nums">${swFmt(swEl())}</div><div class="row"><button class="btn" onclick="${SW.run?"swPause()":"swStart()"}">${SW.run?"Duraklat":(SW.acc?"Devam":"Başlat")}</button><button class="btn gh" onclick="swReset()">Sıfırla</button><button class="btn gh" onclick="swAdd()">Bugüne ekle</button></div><p class="mu" style="margin:8px 0 0">Başlatınca bildirimde ve kilit ekranında süre görünür.</p></div>`}
+if(SW.run)swI=setInterval(swTick,1000);
+function renderSer(){
+  const t0=keyOf(Date.now()),m0=H[selDate]||0;hh=Math.floor(m0/60);mm=m0%60;
+  const y=cal.getFullYear(),mo=cal.getMonth(),lead=(new Date(y,mo,1).getDay()+6)%7,dim=new Date(y,mo+1,0).getDate();
+  const pre=y+"-"+String(mo+1).padStart(2,"0")+"-";
+  let tot=0,cells=GUN.map(g=>`<span>${g}</span>`).join("")+"<span></span>".repeat(lead);
+  for(let d=1;d<=dim;d++){const k=pre+String(d).padStart(2,"0"),m=H[k]||0;tot+=m;const c=m?colOf(m):null;
+    cells+=`<button class="dc${c===COL[5]?" navy":""}${m>=360?" gold":""}${k===t0?" today":""}${k===selDate?" sel":""}"${c?` style="background:${c[0]};color:${c[1]}"`:""} onclick="selDay('${k}')" title="${m?hm(m):""}">${d}</button>`}
+  const title=selDate===t0?"Bugün kaç saat çalıştın?":new Date(selDate+"T00:00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"long"})+" günü kaç saat çalıştın?";
+  const LG=[[0,"1 saatten az"],[1,"1:00–1:59"],[2,"2:00–2:59"],[3,"3:00–3:59"],[4,"4:00–4:59"],[5,"5:00–5:59"],[6,"6 saat ve üstü"]];
+  $("#sec0").innerHTML=`<div class="ser">${swCard()}<div class="card"><b>${title}</b>
+    <div class="wr"><div class="wb"></div>${wheel("wh1",17,0)}<span class="wl">saat</span>${wheel("wh2",60,1)}<span class="wl">dk</span></div>
+    <button class="btn" style="width:100%" onclick="logH()">Kaydet</button><p class="mu" style="text-align:center;margin:8px 0 0">${serMsg}</p></div>
+    <div class="card"><div style="display:flex;align-items:center;gap:8px"><button class="btn gh" style="flex:none;padding:6px 14px" onclick="calGo(-1)">‹</button>
+    <b style="flex:1;text-align:center">${new Date(y,mo,1).toLocaleDateString("tr-TR",{month:"long",year:"numeric"})}</b><button class="btn gh" style="flex:none;padding:6px 14px" onclick="calGo(1)">›</button></div>
+    <div class="cg" style="margin-top:12px">${cells}</div>
+    <p class="mu" style="margin:12px 0 0">Bu ay toplam: ${tot?hm(tot):"—"}</p>
+    <div class="lg">${LG.map(l=>`<span><i style="background:${COL[l[0]][0]}"></i>${l[1]}</span>`).join("")}</div></div></div>`;
+  const w1=$("#wh1"),w2=$("#wh2");
+  w1.onscroll=()=>upd(w1,i=>hh=i);w2.onscroll=()=>upd(w2,i=>mm=i);
+  requestAnimationFrame(()=>{w1.scrollTop=hh*IH;w2.scrollTop=mm*IH;upd(w1,i=>hh=i);upd(w2,i=>mm=i)})}
+
+let aiSub="",aiH=[],aiBusy=false,aiImg=null,_smp;
+const fmtAI=t=>esc(t).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\n/g,"<br>");
+async function getSample(){if(_smp!==undefined)return _smp;try{_smp=(window.claude&&claude.use)?await claude.use("sample"):null}catch(e){_smp=null}return _smp}
+function dataToBlob(d){const p=d.split(","),m=/data:([^;]+)/.exec(p[0])[1],b=atob(p[1]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new Blob([u],{type:m})}
+function drawMsgs(){const m=$("#aimsg");
+  m.innerHTML=aiH.length?aiH.map(x=>`<div class="mb ${x.r}">${x.img?'<img src="'+x.img+'" alt="">':""}${fmtAI(x.t)}</div>`).join(""):'<div class="mu" style="text-align:center;padding:24px 8px">Merhaba! Ben Arda ✏️<br>Ders sorularını yaz ya da fotoğrafını ekle, adım adım çözelim.</div>';
+  m.scrollTop=m.scrollHeight}
+const AIC={"":"#9b5cff",Matematik:"#e74c3c",Geometri:"#e67e22",Fizik:"#3498db",Kimya:"#1abc9c",Biyoloji:"#2ecc71",Türkçe:"#e91e8c",Edebiyat:"#c0398f",Tarih:"#b8860b",Coğrafya:"#16a085",Felsefe:"#7f8c8d",Diğer:"#6c7ae0"};
+function renderAI(){getSample().then(x=>{const kd=$("#aikey");if(kd)kd.style.display=x?"none":""});const sb=$("#aisub");$(".ai").style.setProperty("--sc",AIC[aiSub]||"#9b5cff");
+  sb.innerHTML=["Hepsi",...DERS].map(d=>`<button type="button" style="--c:${AIC[d==="Hepsi"?"":d]||"#9b5cff"}" class="${(aiSub||"Hepsi")===d?"on":""}" data-d="${d}">${d}</button>`).join("");
+  sb.querySelectorAll("button").forEach(b=>b.onclick=()=>{aiSub=b.dataset.d==="Hepsi"?"":b.dataset.d;renderAI()});
+  drawMsgs()}
+const gKey=()=>{try{return localStorage.getItem("yks-gkey")||""}catch(e){return ""}};
+async function geminiPick(key){
+  const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models?pageSize=100",{headers:{"x-goog-api-key":key}});if(!r.ok)return null;
+  const j=await r.json(),all=(j.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes("generateContent")&&/flash/i.test(m.name)&&!/lite|image|tts|live|audio/i.test(m.name));
+  const st=all.filter(m=>!/preview|exp|thinking/i.test(m.name)),l=(st.length?st:all).sort((a,b)=>b.name.localeCompare(a.name,undefined,{numeric:true}));
+  return l[0]?l[0].name.replace("models/",""):null}
+async function geminiAsk(hist,img){
+  const key=gKey();
+  const contents=hist.map(m=>({role:m.role==="user"?"user":"model",parts:[{text:m.content}]}));
+  if(img){const p=img.split(","),mt=/data:([^;]+)/.exec(p[0])[1];contents[contents.length-1].parts.push({inlineData:{mimeType:mt,data:p[1]}})}
+  const body=JSON.stringify({contents});
+  const call=m=>fetch("https://generativelanguage.googleapis.com/v1beta/models/"+m+":generateContent",{method:"POST",headers:{"Content-Type":"application/json","x-goog-api-key":key},body});
+  let model="gemini-flash-latest";try{model=localStorage.getItem("yks-gmodel")||model}catch(e){}
+  let r=await call(model);
+  if(r.status===404){const m=await geminiPick(key);if(m){try{localStorage.setItem("yks-gmodel",m)}catch(e){}r=await call(m)}}
+  if(!r.ok){let t="";try{t=(await r.json()).error.message}catch(e){}const er=new Error(t||("HTTP "+r.status));er.status=r.status;throw er}
+  const j=await r.json(),pr=j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[];
+  return pr.map(x=>x.text||"").join("")||"Cevap alınamadı."}
+async function aiSend(){
+  if(aiBusy)return;const q=$("#aiq").value.trim();if(!q&&!aiImg)return;
+  const sample=await getSample();
+  if(!sample&&!gKey()){aiH.push({r:"a",t:"Arda'yı bu sürümde kullanmak için ücretsiz bir Google Gemini anahtarı gerekiyor. Aşağıdaki 🔑 Gemini anahtarı kutusuna yapıştır."});const kd=$("#aikey");if(kd){kd.style.display="";kd.open=true}drawMsgs();return}
+  const img=aiImg;aiH.push({r:"u",t:q||"(Soru görseli)",img});aiImg=null;$("#aiq").value="";$("#aiq").style.height="auto";$("#aiprev").style.display="none";
+  const bot={r:"a",t:"Düşünüyor…"};aiH.push(bot);aiBusy=true;$("#aisend").disabled=true;drawMsgs();
+  try{
+    let hist=aiH.slice(0,-1).slice(-12).map(x=>({role:x.r==="u"?"user":"assistant",content:x.t}));
+    while(hist.length&&hist[0].role!=="user")hist.shift();
+    const sys="Sen Arda adında, Türkiye'deki YKS (TYT/AYT) öğrencisine yardım eden bir ders koçusun. Türkçe yaz. "+(aiSub?"Şu an ders: "+aiSub+". ":"")+"Cevapların çok kısa ve öz olsun, en fazla 4-5 kısa cümle ya da adım: gereksiz giriş, tekrar ve uzun açıklama yok, sadece gerekli adımları ve sonucu yaz; kullandığın formülü ya da kuralı belirt; sonunda cevabı net yaz. Ders dışı konularda kibarca derse yönlendir. Emin olmadığında söyle, uydurma.";
+    hist[0].content=sys+"\n\n"+hist[0].content;
+    if(sample){
+    const o={modelTier:"default",cache:false,onText:({text})=>{bot.t=text;drawMsgs()}};
+    if(img){let ok=false;try{ok=!!(await sample.limits()).images}catch(e){}if(ok)o.images=[dataToBlob(img)];else hist[hist.length-1].content+="\n(Not: öğrenci bir görsel ekledi ama görüntü okunamıyor, metinle sorusunu yazmasını iste.)"}
+    const r=await sample(hist,o);bot.t=r.text||"Cevap alınamadı.";
+    }else{bot.t=await geminiAsk(hist,img)}
+  }catch(e){
+    const c=e&&e.code;
+    bot.t=(e&&e.text?e.text+"\n\n":"")+(e&&e.status===429?"Ücretsiz kullanım sınırına ulaştın, biraz bekleyip tekrar dene.":e&&e.status&&/key|API/i.test(e.message)?"Anahtar geçersiz görünüyor. Kutuya doğru yapıştırdığından emin ol.":c==="not_granted"?"İzin vermediğin için cevap veremedim. Tekrar sorarsan izin istenecek.":c==="rate_limited"?"Çok hızlı gittik, birkaç saniye bekleyip tekrar dene.":"Bir hata oldu, tekrar dene. ["+(c||"?")+": "+((e&&e.message)||String(e))+"]")
+  }
+  aiBusy=false;$("#aisend").disabled=false;drawMsgs()}
+function aiAttach(){const i=document.createElement("input");i.type="file";i.accept="image/*";
+  i.onchange=async()=>{const f=i.files[0];if(!f)return;try{aiImg=await shrink(f,1200);const p=$("#aiprev");p.src=aiImg;p.style.display="block"}catch(e){aiH.push({r:"a",t:"Bu görsel okunamadı. Başka bir görsel dene."});drawMsgs()}};i.click()}
+function aiNew(){aiH=[];aiImg=null;$("#aiprev").style.display="none";drawMsgs()}
+
+$("#m0").onclick=()=>setSec(0);$("#m1").onclick=()=>setSec(1);$("#m2").onclick=()=>setSec(2);
+$("#aikeysave").onclick=()=>{const v=$("#aikeyin").value.trim();if(!v){try{localStorage.removeItem("yks-gkey");localStorage.removeItem("yks-gmodel")}catch(e){}$("#aikeymsg").textContent="Anahtar silindi.";return}try{localStorage.setItem("yks-gkey",v);localStorage.removeItem("yks-gmodel")}catch(e){}$("#aikeyin").value="";$("#aikeymsg").textContent="Kaydedildi ✓ Artık soru sorabilirsin.";};
+$("#aisend").onclick=aiSend;$("#aiatt").onclick=aiAttach;$("#ainew").onclick=e=>{e.preventDefault();aiNew()};
+$("#aiq").addEventListener("input",e=>{e.target.style.height="auto";e.target.style.height=Math.min(120,e.target.scrollHeight)+"px"});
+$("#t0").onclick=()=>show(0);$("#t1").onclick=()=>show(1);$("#t2").onclick=()=>show(2);
+const tq=todayQuote();$("#qt").innerHTML="<b>Günün sözü</b>“"+tq[0]+"”<span class=\"qa\">— "+tq[1]+"</span>";
+setSec(0);
+openDB().then(loadAll).then(()=>show(0));
+</script>
+<script>
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{try{navigator.serviceWorker.register("sw.js")}catch(e){}})}
+</script>
+</body>
+</html>
